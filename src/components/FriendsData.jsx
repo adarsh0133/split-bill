@@ -1,6 +1,8 @@
 import React from 'react'
+import AddFriend from './AddFriend';
 
-const FriendsData = ({ friendsList,setSelectedFriend }) => {
+const FriendsData = ({ friendsList,setSelectedFriend,openModal }) => {
+
     return (
         <>
             <div className="conatiner-fluid p-2">
@@ -8,7 +10,7 @@ const FriendsData = ({ friendsList,setSelectedFriend }) => {
                     friendsList.map((friend) => (
                         <div key={friend.id} className="w-100 h-25 bg-dark-subtle text-dark p-2 d-flex align-items-center gap-5 ps-5 rounded mb-2">
                             <div className="image-container rounded-circle bg-primary" style={{ width: '100px', height: '100px' }}>
-                                <img src={''} alt="" />
+                                <img src={'#'} alt="" />
                             </div>
                             <div className="info-container">
                                 <h2>{friend.name}</h2>
@@ -22,7 +24,7 @@ const FriendsData = ({ friendsList,setSelectedFriend }) => {
                 }
 
                 <div className="d-flex justify-content-end">
-                    <button className='btn btn-primary'>Add Friend</button>
+                    <button onClick={()=>{openModal(true)}} className='btn btn-primary'>Add Friend</button>
                 </div>
             </div>
         </>

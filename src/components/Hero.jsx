@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import FriendsData from './FriendsData'
 import SplittingForm from './SplittingForm'
+import AddFriend from './AddFriend'
 
 
 let initialfriendsList = [{
@@ -15,7 +16,7 @@ let initialfriendsList = [{
     id: 3,
     name: 'amit',
     balance: 100,
-},{
+}, {
     id: 4,
     name: 'Shubh',
     balance: 300,
@@ -24,27 +25,38 @@ let initialfriendsList = [{
 const Hero = () => {
     const [friendsList, setfriendsList] = useState(initialfriendsList)
     const [selectedFriend, setSelectedFriend] = useState(null);
-    const handleSplit = (selectedFriendId,newExpense) => {
-        setfriendsList((prev)=>{
-            return(
-                prev.map(f => f.id == selectedFriendId ? {...f,balance: newExpense} : f)
+    const [openModal, setopenModal] = useState(false);
+    console.log(openModal)
+
+    const handleSplit = (selectedFriendId, newExpense) => {
+        setfriendsList((prev) => {
+            return (
+                prev.map(f => f.id == selectedFriendId ? { ...f, balance: newExpense } : f)
             )
-        })  
+        })
     }
 
-    console.log(friendsList);
+    const handleAdd = (newfriend) => {
+        console.log(newfriend);
+        setfriendsList((prev)=>{
+            return [...prev,newfriend]
+        })
+        setopenModal(false)
+    }
+
     return (
         <>
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-6">
-                        <FriendsData friendsList={friendsList} setSelectedFriend={setSelectedFriend}/>
+                        <FriendsData friendsList={friendsList} setSelectedFriend={setSelectedFriend} openModal={setopenModal}/>
                     </div>
                     <div className="col-6">
-                        <SplittingForm selectedFriend={selectedFriend} handleSplit={handleSplit}/>
+                        <SplittingForm selectedFriend={selectedFriend} handleSplit={handleSplit} />
                     </div>
                 </div>
             </div>
+            {openModal && <AddFriend friendsList={friendsList} onAdd={handleAdd}/>}
         </>
     )
 }

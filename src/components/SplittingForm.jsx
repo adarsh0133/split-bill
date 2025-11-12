@@ -5,7 +5,7 @@ const SplittingForm = ({ selectedFriend,handleSplit }) => {
     const [yourExpense, setYourExpense] = useState('');
     const [whoPaid, setwhoPaid] = useState('');
     const [friendExpense, setfriendExpense] = useState('')
-    // setfriendExpense(friendexpense);
+
     useEffect(()=>{
         if(totalExpense && yourExpense){
             let friendexpense = totalExpense - yourExpense;
@@ -22,14 +22,13 @@ const SplittingForm = ({ selectedFriend,handleSplit }) => {
 
         let result = '';
         let newExpense = selectedFriend.balance;
-        console.log(newExpense)
 
         if (whoPaid == 'you') {
             result = `${selectedFriend.name} owes you ${friendExpense}rs.`
             newExpense += friendExpense;
         }
         else if (whoPaid == 'friend') {
-            result = `you owe ${selectedFriend.name} ${ friendExpense}rs.`
+            result = `you owe ${selectedFriend.name} ${yourExpense}rs.`
             newExpense -= yourExpense;
         } else {
             result = `You both are settled!`
